@@ -1,0 +1,32 @@
+/*
+ * ATTENTION: The "eval" devtool has been used (maybe by default in mode: "development").
+ * This devtool is neither made for production nor for readable output files.
+ * It uses "eval()" calls to create a separate source file in the browser devtools.
+ * If you are trying to read the output file, select a different devtool (https://webpack.js.org/configuration/devtool/)
+ * or disable the default devtool with "devtool: false".
+ * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
+ */
+/******/ (() => { // webpackBootstrap
+/******/ 	var __webpack_modules__ = ({
+
+/***/ "./src/index.js":
+/*!**********************!*\
+  !*** ./src/index.js ***!
+  \**********************/
+/***/ (() => {
+
+eval("class Node {\r\n    constructor(value = null, nextNode = null) {\r\n        this.value = value;\r\n        this.nextNode = nextNode;\r\n    }\r\n}\r\n\r\nclass LinkedList {\r\n    \r\n    constructor() {\r\n        this.nodeHead = null;\r\n    }\r\n\r\n    prepend(value) {\r\n        let tmp = null;\r\n        if (this.nodeHead !== null) tmp = this.nodeHead;\r\n        this.nodeHead = new Node(value);\r\n        this.nodeHead.nextNode = tmp;\r\n    }\r\n\r\n    append(value) {\r\n        if (this.nodeHead === null) {\r\n            this.prepend(value);\r\n        } else {\r\n            let tmp = this.nodeHead;\r\n            while (tmp.nextNode !== null) {\r\n                tmp = tmp.nextNode;\r\n            }\r\n            tmp.nextNode = new Node(value);\r\n        }\r\n    }\r\n    \r\n    size() {\r\n        let total = 0;\r\n        let tmp = this.nodeHead;\r\n        while (tmp !== null) {\r\n            tmp = tmp.nextNode;\r\n            total += 1;\r\n        }\r\n        return total;\r\n    }\r\n\r\n    head() {\r\n        console.log(this.nodeHead)\r\n        return this.nodeHead;\r\n    }\r\n\r\n    tail() {\r\n        let tmp = this.nodeHead;\r\n        while (tmp.nextNode != null) {\r\n            tmp = tmp.nextNode;\r\n        }\r\n        console.log(tmp);\r\n        return tmp;\r\n    }\r\n//returns the node at the given index\r\n    at(index) {\r\n        let size = this.size();\r\n        if (index > size) return console.log('Index bigger than actual size');\r\n        let tmp = this.nodeHead;\r\n        for (let i = 0; i < index; i++) {\r\n            tmp = tmp.nextNode;\r\n        }\r\n        console.log(tmp);\r\n        return tmp;\r\n    }\r\n//removes the last element from the list\r\n    pop() { \r\n        let size = this.size();\r\n        if (size === 0) return console.log('Can\\'t use pop() on an empty list')\r\n        let cur = 1;\r\n        let tmp = this.nodeHead;\r\n        while (cur < size) {\r\n            if (cur === size - 1) {\r\n                tmp.nextNode = null;\r\n                return;\r\n            }\r\n            cur++;\r\n            tmp = tmp.nextNode;\r\n        }\r\n    }\r\n//returns true if the passed in value is in the list and otherwise returns false.\r\n    contains(value) {\r\n        let tmp = this.nodeHead;\r\n        while (tmp !== null) {\r\n            if (tmp.value === value) {\r\n                return true;\r\n            } else if (tmp.nextNode === null) {\r\n                return false;\r\n            } else {\r\n                tmp = tmp.nextNode;\r\n            }\r\n        }\r\n    }\r\n//returns the index of the node containing value, or null if not found.\r\n    find(value) {\r\n        let size = this.size();\r\n        let tmp = this.nodeHead;\r\n        for (let i = 0; i < size; i++) {\r\n            if (i === size) return null;\r\n            if (tmp.value === value) return `Value (${value}) found at index ${i}`;\r\n            tmp = tmp.nextNode;\r\n        }\r\n    }\r\n//represents your LinkedList objects as strings, so you can print them out and preview them in the console. The format should be: ( value ) -> ( value ) -> ( value ) -> null\r\n    toString() {\r\n        let tmp = this.nodeHead;\r\n        let string = '';\r\n        while (tmp !== null) {\r\n            string += `(${tmp.value}) -> `;\r\n            tmp = tmp.nextNode;\r\n        }\r\n        string += `null`;\r\n        return string;\r\n    }\r\n//inserts a new node with the provided value at the given index.\r\n    insertAt(value, index) {\r\n        let cur = this.nodeHead;\r\n        let prev = null;\r\n        let size = this.size();\r\n        if (index > size) return console.log('Index is bigger than list size');\r\n\r\n        let i = 0;\r\n        if (i === index) {\r\n            this.prepend(value);\r\n            return\r\n        }\r\n\r\n        while (cur !== null && i < index) {\r\n            prev = cur;\r\n            cur = cur.nextNode;\r\n            i++;\r\n        }\r\n\r\n        if (cur !== null) {\r\n            prev.nextNode = new Node(value, cur);\r\n        }\r\n    }\r\n//removes the node at the given index.\r\n    removeAt(index) {\r\n        let cur = this.nodeHead;\r\n        let prev = null;\r\n        let size = this.size();\r\n        if (index > size) return console.log('Index is bigger than list size');\r\n\r\n        let i = 0;\r\n\r\n        if (i === index) {\r\n            this.nodeHead = this.nodeHead.nextNode;\r\n            return\r\n        }\r\n\r\n        while (cur !== null && i < index) {\r\n            prev = cur;\r\n            cur = cur.nextNode;\r\n            i++;\r\n        }\r\n\r\n        if (cur === null) return console.log('Cannot delete null')\r\n\r\n        prev.nextNode = cur.nextNode;\r\n    }\r\n}\r\n\r\n\r\n\r\nconst d = new LinkedList();\r\n\r\nd.append('capsuna');\r\nd.append(7);\r\nd.append('Tom Nook');\r\nd.append(2);\r\nd.append('astronaut');\r\n\r\nconsole.log(d.toString());\r\nconsole.log(d.size());\r\nd.head();\r\nd.tail();\r\nd.at(6);\r\nd.pop();\r\nd.tail();\r\nconsole.log(d.contains('capsuna'));\r\nconsole.log(d.find('Tom Nook'))\r\nconsole.log(d.toString());\r\nd.removeAt(3);\r\nconsole.log(d.toString());\r\nd.insertAt('sugus', 1)\r\nconsole.log(d.toString());\n\n//# sourceURL=webpack://todolist/./src/index.js?");
+
+/***/ })
+
+/******/ 	});
+/************************************************************************/
+/******/ 	
+/******/ 	// startup
+/******/ 	// Load entry module and return exports
+/******/ 	// This entry module can't be inlined because the eval devtool is used.
+/******/ 	var __webpack_exports__ = {};
+/******/ 	__webpack_modules__["./src/index.js"]();
+/******/ 	
+/******/ })()
+;
